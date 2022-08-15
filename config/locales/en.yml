@@ -30,3 +30,12 @@ en:
         password: "Password"
         btn_submit: "Log in"
         remember: "Remember me on this computer"
+  layouts:
+    footer:
+      contact: "Contact"
+      about: "About us"
+      help: "Help"
+      policy: "Policy"
+      terms: "Terms"
+      privacy: "Privacy"
+      location: "Trường Đại học Công nghệ, Đại học Quốc gia Hà Nội, 144 Xuân Thủy, Dịch Vọng Hậu, Cầu Giấy, Hà Nội, Việt Nam"

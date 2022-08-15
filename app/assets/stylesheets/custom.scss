@@ -53,3 +53,14 @@ input {
   width: auto;
   margin-left: 0;
 }
+a:hover,
+a:focus {
+  text-decoration: none !important;
+}
+input[type='date'] {
+  padding: 10px;
+}
+select {
+  padding: 10px;
+  background: white;
+}

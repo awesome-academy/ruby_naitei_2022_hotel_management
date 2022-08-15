@@ -30,3 +30,12 @@ vi:
     error_messages:
       intro: "Biểu mẫu có"
       error: "lỗi"
+  layouts:
+    footer:
+      contact: "Liên hệ"
+      about: "Về chúng tôi"
+      help: "Trợ giúp"
+      policy: "Chính sách"
+      terms: "Điều khoản"
+      privacy: "Chính sách bảo mật"
+      location: "Trường Đại học Công nghệ, Đại học Quốc gia Hà Nội, 144 Xuân Thủy, Dịch Vọng Hậu, Cầu Giấy, Hà Nội, Việt Nam"
