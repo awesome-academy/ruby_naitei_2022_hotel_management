@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     delete "/logout", to: "sessions#destroy"
     resources :password_resets, only: %i(new create edit update)
     resources :account_activations, only: %i(edit)
+    post "/search", to: "room_types#search"
     resources :bookings, only: %i(create index new destroy)
     resources :room_types,  only: %i(index show)
     resources :users
@@ -19,7 +20,9 @@ Rails.application.routes.draw do
       root to: "static_pages#index"
       resources :room_types
       resources :bookings
-      resources :users
+      resources :users do
+        resources :bookings
+      end
       resources :static_pages
     end
   end

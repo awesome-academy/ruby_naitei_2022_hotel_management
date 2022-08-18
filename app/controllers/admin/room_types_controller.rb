@@ -1,21 +1,40 @@
 class Admin::RoomTypesController < Admin::BaseController
+  before_action :find_room_type, only: %i(show edit update destroy)
   def index
     @pagy, @room_types = pagy RoomType.all, page: params[:page],
                                             items: Settings.page.admin_rooms_tb_size
   end
 
+  def new
+    @room_type = RoomType.new
+  end
+
   def show
-    find_room_type params[:id]
     if @room_type
-      @list_rooms = @room_type.rooms
+      render :edit
     else
       flash[:danger] = t ".find_fail"
       redirect_to admin_room_types_path
     end
   end
 
-  def new
-    @room_type = RoomType.new
+  def update
+    if @room_type.update room_type_params
+      flash[:success] = t ".update_success"
+      redirect_to admin_room_types_path
+    else
+      flash[:danger] = t ".update_fail"
+      render :edit
+    end
+  end
+
+  def destroy
+    if @room_type.destroy
+      flash[:success] = t ".delete_success"
+    else
+      flash[:danger] = t ".delete_fail"
+    end
+    redirect_to admin_room_types_path
   end
 
   def create
@@ -30,7 +49,6 @@ class Admin::RoomTypesController < Admin::BaseController
   end
 
   def edit
-    find_room_type params[:id]
     if @room_type
       render :edit
     else
@@ -39,30 +57,9 @@ class Admin::RoomTypesController < Admin::BaseController
     end
   end
 
-  def update
-    find_room_type params[:id]
-    if @room_type.update room_type_params
-      flash[:success] = t ".update_success"
-      redirect_to admin_room_types_path
-    else
-      flash[:danger] = t ".update_fail"
-      render :edit
-    end
-  end
-
-  def destroy
-    find_room_type params[:id]
-    if @room_type.destroy
-      flash[:success] = t ".delete_success"
-    else
-      flash[:danger] = t ".delete_fail"
-    end
-    redirect_to admin_room_types_path
-  end
-
   private
-  def find_room_type room_type_id
-    @room_type = RoomType.find_by id: room_type_id
+  def find_room_type
+    @room_type = RoomType.find_by id: params[:id]
     return if @room_type
 
     flash[:danger] = t ".find_fail"
@@ -70,6 +67,6 @@ class Admin::RoomTypesController < Admin::BaseController
   end
 
   def room_type_params
-    params.require(:room_type).permit :name, :description, :price, :image
+    params.require(:room_type).permit :name, :description, :cost, :image, :capacity, :size
   end
 end

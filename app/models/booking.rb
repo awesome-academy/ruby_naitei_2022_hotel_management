@@ -6,4 +6,6 @@ class Booking < ApplicationRecord
   has_one :payment, dependent: :destroy
   has_many :room_bookeds, dependent: :destroy
   has_many :rooms, through: :room_bookeds
+  scope :newest, ->{order created_at: :desc}
+  scope :by_status_checkout, ->(status, check_out){where("status != #{status} AND check_out < \'#{check_out}\'")}
 end
